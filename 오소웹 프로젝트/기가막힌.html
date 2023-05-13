@@ -97,6 +97,15 @@
 			transform: translateY(-5px);
 			box-shadow: 5px 5px 10px rgba(0,0,0,0.3);
 		}
+
+		article .thumnail{
+			transition: all 1s;
+		}
+
+		article:hover .thumnail
+		{
+			opacity: 0;
+		}
 		
 		article img {
 			max-width: 100%;
@@ -192,7 +201,7 @@
 			<a href="#">게임1 플레이하기</a>
 		</article>
 		<article>
-			<img src=http://indiside.com/files/attach/images/989466/949/919/ce46df436e9c0635768180c4aa205fc6.gif style="width: 400px; height: 300px;" alt="게임1 이미지">
+			<img class="thumnail" src=http://indiside.com/files/attach/images/989466/949/919/ce46df436e9c0635768180c4aa205fc6.gif style="width: 400px; height: 300px;" alt="게임1 이미지">
 			<h2>게임1</h2>
 			<p>게임1을 설명하는 문구</p>
 			<a href="#">게임1 플레이하기</a>
