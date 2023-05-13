@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>숫자 맞추기 게임</title>
+	<style>
+		body {
+			background-color: #f2f2f2;
+			font-family: Arial, sans-serif;
+			margin: 0;
+		}
+		
+		header {
+			background-color: #333;
+			color: #fff;
+			padding: 20px;
+			text-align: center;
+		}
+		
+		.container {
+			max-width: 600px;
+			margin: auto;
+			padding: 20px;
+			text-align: center;
+		}
+		
+		.container h2 {
+			margin-top: 0;
+		}
+		
+		.container p {
+			margin-bottom: 10px;
+		}
+		
+		.container input[type="text"] {
+			padding: 5px;
+			width: 150px;
+		}
+		
+		.container input[type="submit"] {
+			background-color: #333;
+			color: #fff;
+			padding: 10px 20px;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+		}
+	</style>
+</head>
+<body>
+	<header>
+		<h1>숫자 맞추기 게임</h1>
+	</header>
+	<div class="container">
+		<h2>게임을 시작합니다!</h2>
+		<p>1부터 100 사이의 숫자를 맞춰보세요.</p>
+		<form>
+			<input type="text" id="guess" placeholder="숫자를 입력하세요" autofocus>
+			<input type="submit" value="제출">
+		</form>
+		<p id="message"></p>
+	</div>
+	<script>
+		// 정답 숫자를 랜덤으로 생성
+		const answer = Math.floor(Math.random() * 100) + 1;
+		
+		// 폼 제출 시 이벤트 핸들러
+		document.querySelector('form').addEventListener('submit', function(event) {
+			event.preventDefault(); // 폼 제출 시 기본 동작 방지
+
+			// 사용자 입력값 가져오기
+			const guess = parseInt(document.querySelector('#guess').value);
+			
+			// 입력값과 정답 비교
+			if (isNaN(guess)) {
+				document.querySelector('#message').textContent = '유효한 숫자를 입력해주세요.';
+			} else if (guess < 1 || guess > 100) {
+				document.querySelector('#message').textContent = '1부터 100 사이의 숫자를 입력해주세요.';
+			} else if (guess < answer) {
+				document.querySelector('#message').textContent = '정답보다 낮은 숫자입니다. 다시 시도하세요.';
+			} else if (guess > answer) {
+				document.querySelector('#message').textContent = '정답보다 높은 숫자입니다. 다시 시도하세요.';
+			} else {
+				document.querySelector('#message').textContent = '정답입니다! 축하합니다!';
+				document.querySelector('input[type="text"]').disabled = true; // 입력 필드 비활성화
+				document.querySelector('input[type="submit"]').disabled = true; // 제출 버튼 비활성화
+            }document.querySelector('#guess').value = ''; // 입력 필드 초기화
+	});
+</script></body>
+</html>

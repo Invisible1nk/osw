@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>미니게임 사이트</title>
+	<style>
+		@import url('https://fonts.googleapis.com/css2?family=Bruno+Ace+SC&display=swap');
+		body {
+			background-color: #f2f2f2;
+			font-family: Arial, sans-serif;
+			margin: 0;
+		}
+		
+		header {
+			background-color: #333;
+			color: #fff;
+			padding: 20px;
+			text-align: center;
+			position: relative;
+			font-family: 'Bruno Ace SC', cursive;
+		}
+
+		.header-buttons {
+			position: absolute;
+			top: 20px;
+			right: 20px;
+		}
+
+		nav {
+			background-color: #666;
+			color: #fff;
+			font-family: 'Bruno Ace SC', cursive;
+			padding: 10px;
+		}
+		
+		nav ul {
+			list-style-type: none;
+			margin: 0;
+			padding: 0;
+			overflow: hidden;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			font-size: 1.2em;
+			font-weight: bold;
+			letter-spacing: 0.1em;
+			text-transform: uppercase;
+		}
+		
+		nav li {
+			margin: 0 20px;
+		}
+		
+		nav li a {
+			display: block;
+			color: #fff;
+			text-align: center;
+			padding: 10px;
+			text-decoration: none;
+			transition: background-color 0.3s ease;
+		}
+		
+		nav li a:hover {
+			background-color: #999;
+		}
+		
+		section {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: center;
+			align-items: center;
+			padding: 30px;
+			max-width: 1500px;
+			margin: auto;
+			background-image: url(https://dimg.donga.com/wps/NEWS/IMAGE/2021/05/17/106967961.1.jpg);
+			background-size: cover;
+		}
+		
+		article {
+			margin: 40px;
+			padding: 30px;
+			border: 2px solid #ccc;
+			border-radius: 5px;
+			background-color: #fff;
+			box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+			max-width: 300px;
+			text-align: center;
+			transition: transform 0.3s ease;
+			overflow: hidden;
+		}
+		
+		article:hover {
+			transform: translateY(-5px);
+			box-shadow: 5px 5px 10px rgba(0,0,0,0.3);
+		}
+		
+		article img {
+			max-width: 100%;
+			height: auto;
+		}
+		
+		article h2 {
+			margin-top: 0;
+			margin-bottom: 10px;
+			font-size: 1.5em;
+			font-weight: bold;
+			letter-spacing: 0.1em;
+			text-transform: uppercase;
+		}
+		
+		article p {
+			margin-bottom: 0;
+			font-size: 1.2em;
+			color: #666;
+			line-height: 1.5em;
+		}
+		
+		article a {
+			display: block;
+			background-color: #333;
+			color: #fff;
+			padding: 10px;
+			margin-top: 10px;
+			font-size: 1.2em;
+			text-decoration: none;
+			transition: background-color 0.3s ease;
+		}
+		
+		article a:hover {
+			background-color: #666;
+		}
+		.header-buttons a {
+		display: inline-block;
+		background-color: #666;
+		color: #fff;
+		padding: 10px 20px;
+		margin-left: 10px;
+		text-decoration: none;
+		border-radius: 5px;
+		transition: background-color 0.3s ease;
+	}
+
+	.header-buttons a:hover {
+		background-color: #999;
+	}
+	
+	footer {
+		background-color: #333;
+		color: #fff;
+		padding: 20px;
+		text-align: center;
+	}
+	
+	footer p {
+		margin: 0;
+		font-size: 0.8em;
+		color: #666;
+	}
+</style>
+		
+
+</head>
+<body>
+	<header>
+		<h1>Mini Games Heaven</h1>
+		<div class="header-buttons">
+			<a href="#">Login</a>
+			<a href="#">Register</a>
+		</div>
+	</header>
+	<nav>
+		<ul>
+			<li><a href="#">Game1</a></li>
+			<li><a href="#">Game2</a></li>
+			<li><a href="#">Game3</a></li>
+			<li><a href="#">Game4</a></li>
+			<li><a href="#">Game5</a></li>
+			<li><a href="#">Game6</a></li>
+		</ul>
+	</nav>
+	<section>
+		<article>
+			<img src="./example.PNG" alt="게임1 이미지">
+			<h2>게임1</h2>
+			<p>게임1을 설명하는 문구</p>
+			<a href="#">게임1 플레이하기</a>
+		</article>
+		<article>
+			<img src="./example.PNG" alt="게임1 이미지">
+			<h2>게임1</h2>
+			<p>게임1을 설명하는 문구</p>
+			<a href="#">게임1 플레이하기</a>
+		</article>
+		<article>
+			<img src="./example.PNG" alt="게임1 이미지">
+			<h2>게임1</h2>
+			<p>게임1을 설명하는 문구</p>
+			<a href="#">게임1 플레이하기</a>
+		</article>
+		<article>
+			<img src="./example.PNG" alt="게임1 이미지">
+			<h2>게임1</h2>
+			<p>게임1을 설명하는 문구</p>
+			<a href="#">게임1 플레이하기</a>
+		</article>
+		<article>
+			<img src="./example.PNG" alt="게임2 이미지">
+			<h2>게임2</h2>
+			<p>게임2를 설명하는 문구</p>
+			<a href="#">게임2 플레이하기</a>
+		</article>
+		<article>
+			<img src="./example.PNG" alt="게임3 이미지">
+			<h2>게임3</h2>
+			<p>게임3을 설명하는 문구</p>
+				<a href="#">게임3 플레이하기</a>
+		</article>
+	</section>
+	<footer>
+		<p>© 2023 미니게임 사이트</p>
+	</footer>
+</body>
+</html>
