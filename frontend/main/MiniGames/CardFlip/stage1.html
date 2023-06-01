@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <link rel="stylesheet" type="text/css" href="stage1.css" />
+  <script type="text/javascript" src="stage1.js"></script>
+</head>
+<body class="gamesec" onload="shuffle()">
+  <audio src="audio/twin_card_bgm.mp3" autoplay loop>  </audio>
+  <div class="cardSet" style="position:center">
+    <div class="card" onclick="turn(this.id)" id="0" style="position : absolute; left:5px ">
+    </div>
+    <div class="card" onclick="turn(this.id)" id="1" style="position : absolute; left:130px">
+    </div>
+    <div class="card" onclick="turn(this.id)" id="2" style="position : absolute; left:255px">
+    </div>
+    <div class="card" onclick="turn(this.id)" id="3" style="position : absolute; left:380px">
+    </div>
+    <div class="card" onclick="turn(this.id)" id="4" style="position : absolute; left: 505px">
+    </div>
+    <br>
+    <div class="card" onclick="turn(this.id)" id="5" style="position : absolute; left:5px ; margin-top : 180px">
+    </div>
+    <div class="card" onclick="turn(this.id)" id="6" style="position : absolute; left:130px ; margin-top : 180px">
+    </div>
+    <div class="card" onclick="turn(this.id)" id="7" style="position : absolute; left:255px ; margin-top : 180px">
+    </div>
+    <div class="card" onclick="turn(this.id)" id="8" style="position : absolute; left:380px ; margin-top : 180px">
+    </div>
+    <div class="card" onclick="turn(this.id)" id="9" style="position : absolute; left:505px ; margin-top : 180px">
+    </div><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <input type="button" name="" id="start" value="시작" onclick="card_show()">
+    <input type="button" name="" id="restart" value="다시시작" onclick="refresh()">
+    <div class="score" id="score_result"> </div>
+  </div>
+</body>
+<body id="scoreContainer">
+  <div>
+    <table>
+      <thead>
+        <tr>
+          <th class="rank-column">순위</th>
+          <th class="player-column">플레이어</th>
+          <th class="score-column">점수</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><img src="/main/MiniGames/cup-1614530_1920.png" alt="" style="width: 25px; height: 25px;"></td>
+          <td>John</td>
+          <td>1000</td>
+        </tr>
+        <tr>
+          <td><img src="/main/MiniGames/cup-1614673_1920.png" alt="" style="width: 25px; height: 25px;"></td>
+          <td>Jane</td>
+          <td>800</td>
+        </tr>
+        <tr>
+          <td><img src="/main/MiniGames/cup-1614844_1920.png" alt="" style="width: 25px; height: 25px;"></td>
+          <td>Mike</td>
+          <td>600</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</body>
+
+</html>

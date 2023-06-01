@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>게임 점수 테이블</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    
+    th, td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+    
+    th {
+      background-color: #f2f2f2;
+      font-weight: bold;
+      color: #333;
+      text-transform: uppercase;
+    }
+    
+    td {
+      font-size: 14px;
+      color: #555;
+    }
+    
+    tr:hover {
+      background-color: #f5f5f5;
+    }
+    
+    .rank-column {
+      width: 10%;
+    }
+    
+    .player-column {
+      width: 50%;
+    }
+    
+    .score-column {
+      width: 40%;
+    }
+  </style>
+</head>
+<body>
+  <h2>게임 점수 테이블</h2>
+  
+  <table>
+    <thead>
+      <tr>
+        <th class="rank-column">순위</th>
+        <th class="player-column">플레이어</th>
+        <th class="score-column">점수</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>John</td>
+        <td>1000</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>Jane</td>
+        <td>800</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>Mike</td>
+        <td>600</td>
+      </tr>
+    </tbody>
+  </table>
+</body>
+</html>

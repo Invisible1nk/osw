@@ -1,0 +1,355 @@
+@import url('https://fonts.googleapis.com/css2?family=Bruno+Ace+SC&display=swap');
+body {
+	background-color: #ebebeb;
+	font-family: Arial, sans-serif;
+	min-height: 100;
+	margin: 0;
+	min-height: 100vh;
+}
+
+header {
+	background-color: #ebebeb;
+	color: #fff;
+	padding: 5px;
+	text-align: center;
+	position: relative;
+	font-family: 'Bruno Ace SC', cursive;
+}
+
+
+header h1{
+	color: #081bcd;
+	font-size: 2em;
+	margin-block-start: 0.5em;
+	margin-block-end: 0.5em;
+	display: inline-block;
+}
+
+.header-buttons {
+	position: absolute;
+	top: 20px;
+	right: 20px;
+}
+
+.GameCategory1 {
+	float: both;
+	overflow-x: auto;
+	width: 100%;
+	min-height: 30vh;
+	white-space: nowrap;
+	background-color: #ebebeb;
+	font-family: Arial, sans-serif;
+	margin: 0;
+}
+
+
+.loginsec{
+	position: relative;
+	float: right;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	width: 20%;
+	min-height: 65vh;
+}
+
+.login{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+}
+
+i {
+margin: 0 2px;
+}
+
+.GC{
+font-family: 'Bruno Ace SC', cursive;
+font-weight: bold;
+font-size: 15px;
+}
+
+.floating
+{
+position: fixed;
+border: #007AAE;
+border-radius: 0.5px;
+}
+
+a {
+text-decoration: none;
+
+color: black;
+
+margin: 10px;
+}
+
+
+
+#banner {
+
+position: relative;
+
+margin: 10px;
+
+overflow: hidden;
+
+width: 500px;
+
+height: 300px;
+
+display: flex;
+
+justify-content: center;
+
+
+}
+
+
+
+.ch {
+
+position: absolute;
+
+border: 2px solid;
+
+border-radius: 15px;
+
+left: 40px;
+
+width: 420px;
+
+height: 250px;
+
+top: 3px;
+
+
+}
+
+
+.chtxt
+{
+position: absolute;
+
+font-size: 23px;
+
+font-family: 'Bruno Ace SC', cursive;
+
+font-weight: bold;
+
+top: 240px;
+
+transition: all 0.3s;
+}
+
+
+
+
+
+/* #banner:hover .chtxt{
+
+left: 700px;
+} */
+
+
+
+#showGif .tistory {
+
+position: absolute;
+
+/* z-index: -1; */
+
+width: 79%;
+height: 65%;	
+display:block;
+border:1px solid;
+border-radius: 20px;
+/* top: -300px; */
+
+transition: all 0.2s;
+
+}
+
+
+
+#banner:hover .tistory {
+
+top: 3px;
+z-index: 1;#banner:hover .chtxt{
+
+left: 700px;
+}
+
+}
+
+
+
+.txt {
+
+display: block;
+
+position: absolute;
+
+left: 20px;
+
+top: 110px;
+
+font-size: 30px;
+
+font-weight: bold;
+
+opacity: 0;
+
+transform: scale(2, 2);
+
+transition: all 0.25s linear 0.2s;
+
+}
+
+
+
+#banner:hover .txt {
+
+opacity: 1;
+
+transform: scale(1, 1);
+
+}
+
+
+
+.txt2 {
+
+display: block;
+
+position: absolute;
+
+left: -300px;
+
+bottom: 20px;
+
+font-size: 30px;
+
+font-family: 'Bruno Ace SC', cursive;
+
+font-weight: bold;
+
+color: #555;
+
+transition: all 0.5s 0.3s;
+
+}
+
+
+
+#banner:hover .txt2 {
+
+left: 18px;
+
+}
+
+
+
+.logo {
+
+display: block;
+
+position: absolute;
+
+left: 270px;
+
+bottom: -50px;
+
+font-size: 20px;
+
+color: #888;
+
+transition: all 0.5s 0.3s;
+
+}
+
+
+
+#banner:hover .logo {
+
+bottom: 20px;
+
+}
+
+
+
+.device {
+
+display: block;
+
+position: absolute;
+
+right: 180px;
+
+bottom: 10px;
+
+font-size: 55px;
+
+color: #007AAE;
+
+opacity: 0;
+
+transition: opacity 0.5s linear 0.2s;
+
+}
+
+.gif{
+	object-fit: cover;
+}
+
+
+#banner:hover .device {
+
+opacity: 1;
+
+}
+
+	.header-buttons a {
+	display: inline-block;
+	background-color: #666;
+	color: #fff;
+	padding: 10px 20px;
+	margin-left: 10px;
+	text-decoration: none;
+	border-radius: 5px;
+	transition: background-color 0.3s ease;
+}
+
+.header-buttons a:hover {
+	background-color: #999;
+}
+
+footer {
+	background-color: #333;
+	color: #fff;
+	padding: 20px;
+	text-align: center;
+	clear: both;
+}
+
+footer p {
+	margin: 0;
+	font-size: 0.8em;
+	color: #666;
+}
+#showGif{
+	border: 2px solid;
+	border-radius: 20px;
+	height: 65vh;
+	display: inline-block;
+	width: 79%;	
+	margin-left: 0.5%;
+	background-image: url(../img/game2.jpg);
+	background-size: cover;
+	background-color: #ebebeb;
+	}
+
+.left{
+	display: inline-block;
+	margin: 5px;
+}

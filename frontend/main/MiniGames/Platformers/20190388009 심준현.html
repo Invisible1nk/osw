@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>플랫포머 게임</title>
+  <style>
+
+    /* 캔버스 설정 및 배경 */
+    #gameCanvas {
+      margin-left: 20px;
+      float: left;
+      border: 1px solid black;
+      display: block;
+      margin: 0 auto;
+      background-image: url(https://img.freepik.com/free-vector/space-background-with-landscape-of-alien-planet_107791-1125.jpg?w=1800&t=st=1685015808~exp=1685016408~hmac=e2f89d7ab2940dd6b9c1ac526841a654344c971c9ade7504b0e770427019c90a);
+      background-size: cover;
+    }
+
+    /* 시작 버튼 */
+    #startButton {
+      display: block;
+      margin: 0 auto;
+      margin-top: 20px;
+    }
+    
+    /* 점수 표시판 */
+    #scoreContainer {
+      float: right;
+      text-align: center;
+      margin-top: 20px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    
+    th, td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+    
+    th {
+      background-color: #f2f2f2;
+      font-weight: bold;
+      color: #333;
+      text-transform: uppercase;
+    }
+    
+    td {
+      font-size: 14px;
+      color: #555;
+    }
+    
+    tr:hover {
+      background-color: #f5f5f5;
+    }
+    
+    .rank-column {
+      width: 10%;
+    }
+    
+    .player-column {
+      width: 50%;
+    }
+    
+    .score-column {
+      width: 40%;
+    }
+  </style>
+  <!-- 게임이미지들 -->
+  <img src="./player.png" id="playerImg" style="display:none; width: 34px; height: 34px;">
+  <img src="./meteor.png" id="meteorImg" style="display:none; width: 40px; height: 20px;">
+  <img src="./missile.png" id="enemyImg" style="display:none; width: 42px; height: 32px;">
+  <img src="./flag.png" id="endflag" style="display:none; width: 40px; height: 55px;">
+  <!-- 게임 사운드 -->
+  <audio id="backgroundMusic" src="./BossMain.wav" loop></audio>
+  <audio id="SuccessSound" src="./round_end.wav"></audio>
+  <audio id="DeathSound" src="./8bit_bomb_explosion.wav"></audio>
+  <audio id="Jump" src="./jump_01.wav"></audio>
+</head>
+<body>
+  <!-- 게임 시작 버튼 만듬 -->
+  <button id="startButton">게임 시작</button>
+
+  <!--캔버스 크기 조정-->
+  <canvas id="gameCanvas" width="1350" height="1000"></canvas>
+
+  <!-- 클리어 타임 표시 -->
+  <div id="scoreContainer">
+    <table>
+      <thead>
+        <tr>
+          <th class="rank-column">순위</th>
+          <th class="player-column">플레이어</th>
+          <th class="score-column">점수</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><img src="/main/MiniGames/cup-1614530_1920.png" alt="" style="width: 25px; height: 25px;"></td>
+          <td>John</td>
+          <td>1000</td>
+        </tr>
+        <tr>
+          <td><img src="/main/MiniGames/cup-1614673_1920.png" alt="" style="width: 25px; height: 25px;"></td>
+          <td>Jane</td>
+          <td>800</td>
+        </tr>
+        <tr>
+          <td><img src="/main/MiniGames/cup-1614844_1920.png" alt="" style="width: 25px; height: 25px;"></td>
+          <td>Mike</td>
+          <td>600</td>
+        </tr>
+      </tbody>
+    </table>
+    <div>
+      <span>클리어 타임: </span><span id="currentScore">0</span>
+    </div>
+  </div>
+
+  <script>
+    // 캔버스 요소 가져오기
+    var canvas = document.getElementById("gameCanvas");
+    var context = canvas.getContext("2d");
+
+    function updateScore() {
+    // 현재 점수 표시
+    document.getElementById("currentScore").textContent = currentScore;
+    }
+    //점수를 잠깐 저장하기 위한 변수
+    var temp = currentScore
+
+    // 1초마다 시간 +
+    setInterval(function() {
+    if (isPlaying) {
+      currentScore += 1;
+      updateScore();
+    } 
+    }, 1000);
+
+    // 게임 상태
+    var isPlaying = false;
+
+    // 게임 점수(시간제 시간이 늘어날수록 안좋음)
+    var currentScore = 0;
+    var highScore = 1000;
+
+
+    // 게임 초기화 
+    function initializeGame() {
+      isPlaying = true;
+      currentScore = 0;
+      //소리 설정
+      var jumpSound = document.getElementById("Jump");
+      var deathSound = document.getElementById("DeathSound");
+      var successSound = document.getElementById("SuccessSound");
+      var backgroundMusic = document.getElementById("backgroundMusic");
+
+      //소리가 처음부터 나오게 하기 위한 초기화
+      deathSound.currentTime = 0;
+      successSound.currentTime = 0;
+      backgroundMusic.currentTime = 0;
+
+      //배경 음악 플레이
+      backgroundMusic.play();
+
+      // 플레이어 초기 위치 및 속도 설정
+      var playerX = 50;
+      var playerY = canvas.height - 50;
+      var playerSpeed = 2;
+      var playerJumpForce = 10;
+      var playerGravity = 0.1;
+      var isJumping = false;
+      var playerImg = document.getElementById("playerImg");
+
+
+      // 엔딩 깃발 위치 설정
+      var flagX = 1200;
+      var flagY = canvas.height - 860;
+      var flagImage = document.getElementById("endflag");
+
+      //미사일들 초기 위치 및 속도 설정
+      var enemys = [
+        { x: canvas.width -50, y: canvas.height -50, width: 40, height: 24, speed: 2},
+        { x: canvas.width - 20, y: canvas.height - 330, width: 40, height: 24, speed: 3.5},
+        { x: canvas.width - 30, y: canvas.height - 530, width: 40, height: 24, speed: 3},
+        { x: canvas.width - 30, y: canvas.height - 730, width: 40, height: 24, speed: 2.5},
+        { x: canvas.width - 30, y: canvas.height - 830, width: 40, height: 24, speed: 3}
+      ];
+      var enemyImg = document.getElementById("enemyImg");
+
+      //운석들 초기 위치 및 설정
+      var meteors = [
+        { x: canvas.width -400, y: canvas.height - 1100, width: 20, height: 40, speed: 2},
+        { x: canvas.width - 700, y: canvas.height - 1100, width: 20, height: 40, speed: 1.2},
+        { x: canvas.width - -100, y: canvas.height - 1100, width: 20, height: 40, speed: 1.6},
+        { x: canvas.width - 600, y: canvas.height - 1100, width: 20, height: 40, speed: 1.1},
+        { x: canvas.width - 1000, y: canvas.height - 1100, width: 20, height: 40, speed: 1.8},
+        { x: canvas.width - 60, y: canvas.height - 1100, width: 20, height: 40, speed: 1}
+      ];
+      var meteorImg = document.getElementById("meteorImg");
+      
+
+      // 발판들 초기 위치 및 속도 설정
+      var platforms = [
+        { x: canvas.width / 2 - 200, y: canvas.height - 250, width: 70, height: 10, speed:2 },
+        { x: canvas.width / 2 - 200, y: canvas.height - 100, width: 80, height: 10, speed:2 },
+        { x: canvas.width / 2 - 120, y: canvas.height - 500, width: 110, height: 10, speed:1 },
+        { x: canvas.width / 2 - 70, y: canvas.height - 700, width: 70, height: 10,speed:1.7 },
+        { x: canvas.width / 2 + 30, y: canvas.height - 200, width: 70, height: 10,speed:1.3 },
+        { x: canvas.width / 2 - 10, y: canvas.height - 300, width: 110, height: 10, speed:1 },
+        { x: canvas.width / 2 - 70, y: canvas.height - 120, width: 110, height: 10,speed:0.8 },
+        { x: canvas.width / 2 - 50, y: canvas.height - 400, width: 100, height: 10,speed:1.2 },
+        { x: canvas.width / 2 + 10, y: canvas.height - 170, width: 70, height: 10,speed:0.5},
+        { x: canvas.width / 2 - 300, y: canvas.height - 360, width: 100, height: 10,speed:0.6},
+        { x: canvas.width / 2 - 150, y: canvas.height - 800, width: 1300, height: 10, speed:2},
+        { x: canvas.width / 2 - 400, y: canvas.height - 660, width: 100, height: 10,speed:2},
+        { x: canvas.width / 2 - 150, y: canvas.height - 680, width: 120, height: 10,speed:1.3},
+        { x: canvas.width / 2 - 200, y: canvas.height - 600, width: 110, height: 10 ,speed:0.8},
+        { x: canvas.width / 2 + 200, y: canvas.height - 500, width: 160, height: 10 ,speed:2},
+        { x: canvas.width / 2 + 150, y: canvas.height - 380, width: 100, height: 10 ,speed:1.6},
+        { x: canvas.width / 2 + 100, y: canvas.height - 300, width: 110, height: 10 ,speed:1.3},
+        { x: canvas.width / 2 + 400, y: canvas.height - 200, width: 100, height: 10 ,speed:1.8},
+        { x: canvas.width / 2 + 500, y: canvas.height - 400, width: 90, height: 10 ,speed:2},
+        { x: canvas.width / 2 + 600, y: canvas.height - 380, width: 100, height: 10 ,speed:2.2},
+        { x: canvas.width / 2 + 650, y: canvas.height - 450, width: 100, height: 10 ,speed:2},
+        { x: canvas.width / 2 + 200, y: canvas.height - 450, width: 100, height: 10 ,speed:2},
+        { x: canvas.width / 2 + 590, y: canvas.height - 420, width: 60, height: 10 ,speed:0.9},
+        { x: canvas.width / 2 + 460, y: canvas.height - 700, width: 90, height: 10 ,speed:1.7},
+        { x: canvas.width / 2 + 600, y: canvas.height - 750, width: 120, height: 10 ,speed:1},
+        { x: canvas.width / 2 + 30, y: canvas.height - 730, width: 60, height: 10 ,speed:1.5},
+        { x: canvas.width / 2 + 50, y: canvas.height - 100, width: 120, height: 10 ,speed:1.3},
+        { x: canvas.width / 2 - 300, y: canvas.height - 100, width: 50, height: 10 ,speed:2.1},
+        { x: canvas.width / 2 - 300, y: canvas.height - 100, width: 80, height: 10 ,speed:2},
+        { x: canvas.width / 2 - 300, y: canvas.height - 450, width: 40, height: 10 ,speed:1.5},
+        { x: canvas.width - 70, y: canvas.height - 500, width: 60, height: 10, speed: 2.2}
+      ];
+      var platformimg=document.getElementById("platformimg");
+
+      // 키 입력 상태 객체
+      var keys = {
+        left: false,
+        right: false,
+        space: false
+      };
+
+      // 키 입력 처리
+      document.addEventListener("keydown", function(event) {
+        if (event.key === "ArrowLeft") {
+          keys.left = true;
+        } else if (event.key === "ArrowRight") {
+          keys.right = true;
+        } else if (event.key === "ArrowUp") {
+          keys.space = true;
+        }
+      });
+
+      document.addEventListener("keyup", function(event) {
+        if (event.key === "ArrowLeft") {
+          keys.left = false;
+        } else if (event.key === "ArrowRight") {
+          keys.right = false;
+        } else if (event.key === "ArrowUp") {
+          keys.space = false;
+          jumpSound.currentTime = 0; // 소리 파일을 처음부터 재생하기 위해
+          jumpSound.play();
+        }
+      });
+
+        // 게임 루프
+        function gameLoop() {
+        if (!isPlaying) {
+          return;
+        }
+
+
+
+        // 캔버스 초기화
+        context.clearRect(0, 0, canvas.width, canvas.height);
+
+
+
+        // 플레이어 이동
+        if (keys.left && playerX > 0) {
+          playerX -= playerSpeed;
+        }
+
+        if (keys.right && playerX < canvas.width - 30) {
+          playerX += playerSpeed;
+        }
+
+
+        
+        // 점프 처리
+        
+        if (keys.space && !isJumping) {
+          isJumping = true;
+          playerGravity = -playerJumpForce;
+        }
+
+        if (isJumping) {
+          playerY += playerGravity;
+          playerGravity += 0.4;
+        }
+
+        if (playerY > canvas.height - 50) {
+            playerY = canvas.height - 50;
+            isJumping = false;
+          }
+        
+
+
+        // 플레이어 그리기
+        context.drawImage(playerImg,playerX,playerY,30,30);
+
+
+        //엔딩 깃발 그리기
+        context.drawImage(flagImage,flagX,flagY,30,55);
+
+
+
+        // 적 캐릭터 이동
+        enemys.forEach(function(enemy) {
+          enemy.x -=enemy.speed;
+          if (enemy.x+enemy.width/2 < -30) {
+            enemy.x=canvas.width;}
+        })
+
+        platforms.forEach(function(platform) {
+          platform.x -=platform.speed;
+          if (platform.x+platform.width/2 < -30) {
+            platform.x=canvas.width;}
+        })
+
+        meteors.forEach(function(meteor) {
+          meteor.y +=meteor.speed;
+          if (meteor.y+meteor.height/2 > 1300) {
+            meteor.y=canvas.height-1100;}
+        })
+
+
+        // 발판 그리기
+        context.fillStyle = "green";
+        platforms.forEach(function(platform) {
+          context.fillRect(platform.x, platform.y, platform.width, platform.height);
+        });
+
+        //적 그리기
+        enemys.forEach(function (enemy) {
+          context.drawImage(enemyImg,enemy.x, enemy.y, enemy.width, enemy.height);
+        })
+
+        //운석 그리기
+        meteors.forEach(function (meteor) {
+          context.drawImage(meteorImg, meteor.x, meteor.y, meteor.width, meteor.height);
+        })
+        
+
+
+
+        // 발판에 올라갈 수 있게 함
+        var isOnPlatform = false;
+
+        platforms.forEach(function(platform) {
+          if (
+            playerX < platform.x + platform.width &&
+            playerX + 30 > platform.x &&
+            playerY + 30 >= platform.y &&
+            playerY < platform.y + platform.height &&
+            playerGravity >= 0 //<- 이걸 통해 자연스러운 발판 착지를 가능하게 함
+          ) {
+            isOnPlatform = true;
+            playerY = platform.y - 30; // 발판 위로 이동
+            playerGravity = 0; // 중력 초기화
+          }
+        });
+
+
+        //발판 위에서 점프가 가능하게 함
+        if (keys.space && isOnPlatform) {
+          isJumping = true;
+          playerGravity = -playerJumpForce;
+        }
+
+
+
+        //적이랑 충돌 감지
+        enemys.forEach(function (enemy) {
+          if (
+          (playerX < enemy.x + 30 && playerX + 30 > enemy.x && playerY < enemy.y + 30 && playerY + 30 > enemy.y)
+        ) {
+          // 게임 종료
+          isPlaying = false;
+          currentScore = 0;
+          deathSound.play();
+          backgroundMusic.pause();
+          alert("게임 오버!");
+        }
+        })
+
+        //운석이랑 충돌 감지
+        meteors.forEach(function (meteor) {
+          if (
+          (playerX < meteor.x + 30 && playerX + 30 > meteor.x && playerY < meteor.y + 30 && playerY + 30 > meteor.y)
+        ) {
+          // 게임 종료
+          isPlaying = false;
+          currentScore = 0;
+          deathSound.play();
+          backgroundMusic.pause();
+          alert("게임 오버!");
+        }
+        })
+
+        
+        //게임 클리어!!! 게임 클리어시 성공한 시간을 저장! 시간이 적을수록 가장 빠른 시간에 넣게됨
+        if(playerX < flagX + 30 && playerX + 30 > flagX && playerY < flagY + 30 && playerY + 30 > flagY)
+        {
+          isPlaying =false;
+          temp = currentScore;
+          alert("게임 클리어!");
+          successSound.play();
+          backgroundMusic.pause();
+          if (temp < highScore) {
+            highScore = currentScore;
+            document.getElementById("highScore").textContent = highScore;
+          }
+        }
+        
+
+        // 다음 프레임 요청
+        requestAnimationFrame(gameLoop);
+      }
+
+      // 게임 루프 시작
+      gameLoop();
+    }
+
+    // 게임 시작 버튼 클릭 이벤트 처리
+    var startButton = document.getElementById("startButton");
+    startButton.addEventListener("click", function() {
+      initializeGame();
+    });
+  </script>
+</body>
+</html>

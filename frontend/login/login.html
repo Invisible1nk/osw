@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>미니게임 사이트</title>
+	<style>
+		@import url('https://fonts.googleapis.com/css2?family=Bruno+Ace+SC&display=swap');
+		body {
+			background-color: #ebebeb;
+			font-family: Arial, sans-serif;
+			border: 2px solid;
+			border-radius: 20px;
+			margin: 0;
+		}
+		
+		header {
+			background-color: #333;
+			color: #fff;
+			padding: 20px;
+			text-align: center;
+			position: relative;
+			font-family: 'Bruno Ace SC', cursive;
+		}
+
+		.header-buttons {
+			position: absolute;
+			top: 2%;
+			left: 30%;
+		}
+
+		nav {
+			background-color: #666;
+			color: #fff;
+			font-family: 'Bruno Ace SC', cursive;
+			padding: 10px;
+		}
+		
+		nav ul {
+			list-style-type: none;
+			margin: 0;
+			padding: 0;
+			overflow: hidden;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			font-size: 1.2em;
+			font-weight: bold;
+			letter-spacing: 0.1em;
+			text-transform: uppercase;
+		}
+		
+		nav li {
+			margin: 0 20px;
+		}
+		
+		nav li a {
+			display: block;
+			color: #fff;
+			text-align: center;
+			padding: 10px;
+			text-decoration: none;
+			transition: background-color 0.3s ease;
+		}
+		
+		nav li a:hover {
+			background-color: #999;
+		}
+		
+		section {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: center;
+			align-items: center;
+			padding: 30px;
+			max-width: 1500px;
+			margin: auto;
+			
+			background-size: cover;
+		}
+		
+		article {
+			margin: 40px;
+			padding: 30px;
+			border: 2px solid #ccc;
+			border-radius: 5px;
+			background-color: #fff;
+			box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+			max-width: 300px;
+			text-align: center;
+			transition: transform 0.3s ease;
+			overflow: hidden;
+		}
+		
+		article:hover {
+			transform: translateY(-5px);
+			box-shadow: 5px 5px 10px rgba(0,0,0,0.3);
+		}
+		
+		article img {
+			max-width: 100%;
+			height: auto;
+		}
+		
+		article h2 {
+			margin-top: 0;
+			margin-bottom: 10px;
+			font-size: 1.5em;
+			font-weight: bold;
+			letter-spacing: 0.1em;
+			text-transform: uppercase;
+		}
+		
+		article p {
+			margin-bottom: 0;
+			font-size: 1.2em;
+			color: #666;
+			line-height: 1.5em;
+		}
+		
+		article a {
+			display: block;
+			background-color: #333;
+			color: #fff;
+			padding: 10px;
+			margin-top: 10px;
+			font-size: 1.2em;
+			text-decoration: none;
+			transition: background-color 0.3s ease;
+		}
+		
+		article a:hover {
+			background-color: #666;
+		}
+		.header-buttons a {
+		display: inline-block;
+		background-color: #666;
+		color: #fff;
+		padding: 15px 25px;
+		margin-left: 10px;
+		text-decoration: none;
+		border-radius: 5px;
+		transition: background-color 0.3s ease;
+	}
+
+	.header-buttons a:hover {
+		background-color: #999;
+	}
+	
+	footer {
+		background-color: #333;
+		color: #fff;
+		padding: 20px;
+		text-align: center;
+	}
+	
+	footer p {
+		margin: 0;
+		font-size: 0.8em;
+		color: #666;
+	}
+	input{
+		width: 80%;
+		height: 30px;
+	}
+
+	.logloc{
+		font-family: 'Bruno Ace SC', cursive;
+		margin-top: 10%;
+		margin-right: 10px;
+	}
+
+</style>
+		
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<link rel="stylesheet" href="./index.css" />
+<script src="./index.js"></script>
+<script src="./signup.js"></script>
+</head>
+<body>
+	<div id="ModalContainer" onclick="CloseModal()"></div>
+      <div id="SignupModalWrapper">
+		<div><button onclick="CloseModal()">X</button></div>
+        <div class="SignupTitle">
+			<span>회원가입</span>
+		</div>
+        <div class="SignupInputWrapper">
+          <span class="SignupInputName">Id</span>
+          <input
+            id="SignupId"
+            class="SignupInput"
+            type="text"
+            placeholder="Id을 입력해주세요"
+          />
+        </div>
+
+        
+        <div class="SignupInputWrapper">
+          <span class="SignupInputName">핸드폰 번호</span>
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              padding-bottom: 20px;
+            "
+          >
+            <div style="display: felx">
+              <input
+                id="PhoneNumber01"
+                class="SignupInput"
+                type="text"
+                maxlength="3"
+                value="010"
+                readonly
+              /><span class="PhoneSlash">-</span
+              ><input
+                id="PhoneNumber02"
+                class="SignupInput"
+                type="text"
+                maxlength="4"
+              /><span class="PhoneSlash">-</span
+              ><input
+                id="PhoneNumber03"
+                class="SignupInput"
+                type="text"
+                maxlength="4"
+              />
+              </div>
+          </div>
+        </div>
+        
+        <div class="SignupInputWrapper">
+          <span class="SignupInputName">이메일</span>
+          <input
+            id="SignupEmail"
+            class="SignupInput"
+            type="text"
+            placeholder="이메일을 입력해주세요"
+          />
+        </div>
+        <div class="SignupInputWrapper">
+          <span class="SignupInputName">비밀번호</span>
+          <input
+            id="SignupPwd"
+            class="SignupInput"
+            type="password"
+            placeholder="비밀번호를 입력해주세요"
+          />
+        </div>
+        <div class="ButtonWrapper">
+          <div class="Signup" onclick="submitSignup()">회원 가입</div>
+        </div>
+      </div>
+
+	<section>
+
+		<div class="header-buttons">
+			<div class="logloc" id="log"></div>
+			<script>CheckLogin()</script>
+		</div>
+	</section>
+	
+</body>
+</html>

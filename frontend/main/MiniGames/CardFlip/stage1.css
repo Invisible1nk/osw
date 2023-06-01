@@ -1,0 +1,101 @@
+@import url(http://fonts.googleapis.com/earlyaccess/jejugothic.css);
+  html {font-family: 'Jeju Gothic', serif;}
+  #scoreContainer{
+    float: right;
+    min-width: 30vh;
+  }
+  .gaemsec{
+    float: left;
+    min-width: 70vh;
+  }
+  .cardSet {
+    position: fixed;
+    top: 20%;
+    left: 28%;
+  }
+  .card {
+    background-image: url("image/back.png");
+    width: 120px;
+    height: 180px;
+    margin: 10px;
+    background-size: 120px 180px;
+  }
+  #start {
+    position: absolute;
+    width: 100px;
+    height: 30px;
+    left: 200px;
+    top: 410px;
+  }
+  #restart {
+    position: absolute;
+    width: 110px;
+    height: 30px;
+    left: 360px;
+    top: 410px;
+  }
+  #hint{
+    position: absolute;
+    width: 110px;
+    height: 30px;
+    left: 520px;
+    top: 410px;
+  }
+  #end{
+    position: absolute;
+    width: 100px;
+    height: 30px;
+    left: 650px;
+    top: 410px;
+  }
+  #score_result {
+    font-size: 30px;
+    text-align: center;
+    position: absolute;
+    border-color: blue;
+    border-width: 0.5px;
+    border-style: outset;
+    width: 260px;
+    height: 50px;
+    line-height: 50px;
+    left: 190px;
+    bottom: 380px;
+  }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+    color: #333;
+    text-transform: uppercase;
+  }
+  
+  td {
+    font-size: 14px;
+    color: #555;
+  }
+  
+  tr:hover {
+    background-color: #f5f5f5;
+  }
+  
+  .rank-column {
+    width: 10%;
+  }
+  
+  .player-column {
+    width: 50%;
+  }
+  
+  .score-column {
+    width: 40%;
+  }
