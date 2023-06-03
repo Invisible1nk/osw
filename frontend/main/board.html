@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>게시판</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    form {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    input[type="text"],
+    textarea {
+      width: 100%;
+      padding: 5px;
+    }
+
+    input[type="submit"] {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      cursor: pointer;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      border-radius: 10px;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 8px;
+      text-align: center;
+      word-wrap: break-word;
+    }
+
+    .delete-button{
+      background-color: red;
+      color: white;
+      text-align: center;
+    }
+
+    .num{
+      text-align: center;
+      width: 3%;
+    }
+    .title{
+      text-align: center;
+      width: 16%;
+    }
+    .person{
+      text-align: center;
+      width: 21%;
+    }
+    .contents{
+      text-align: center;
+      width: 57%;
+      word-wrap: break-word;
+    }
+    #content{
+      word-wrap: break-word;
+    }
+    .delete{
+      width: 3%;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var form = document.querySelector('form');
+      form.addEventListener('submit', function(event) {
+        event.preventDefault(); // 기본 제출 동작 방지
+  
+        // 입력된 값 가져오기
+        var title = document.getElementById('title').value;
+        var author = document.getElementById('author').value;
+        var content = document.getElementById('content').value;
+  
+        // 새로운 테이블 행 생성
+        var table = document.querySelector('table');
+        var newRow = table.insertRow(-1);
+        var numberCell = newRow.insertCell(0);
+        var titleCell = newRow.insertCell(1);
+        var authorCell = newRow.insertCell(2);
+        var contentCell = newRow.insertCell(3);
+        var deleteCell = newRow.insertCell(4); 
+  
+        // 새로운 테이블 셀에 값 할당
+        numberCell.textContent = table.rows.length - 1;
+        titleCell.textContent = title;
+        authorCell.textContent = author;
+        contentCell.textContent = content;
+        deleteCell.innerHTML = '<button class="delete-button">삭제</button>'; // 삭제 버튼 추가
+  
+        // 입력 필드 초기화
+        form.reset();
+  
+        // 삭제 버튼 클릭 이벤트 처리
+        var deleteButtons = document.querySelectorAll('.delete-button');
+        deleteButtons.forEach(function(button) {
+          button.addEventListener('click', function() {
+            var row = this.parentNode.parentNode;
+            row.parentNode.removeChild(row);
+          });
+        });
+      });
+    });
+  </script>
+  
+  <h1>게시판</h1>
+
+  <form>
+    <label for="title">제목:</label>
+    <input type="text" id="title" name="title" required>
+
+    <label for="author">작성자:</label>
+    <input type="text" id="author" name="author" required>
+
+    <label for="content">내용:</label>
+    <textarea id="content" name="content" rows="5" maxlength="500" placeholder="500자 제한" required></textarea>
+
+    <input type="submit" value="작성">
+  </form>
+
+  <table>
+    <tr>
+      <th class="num">번호</th>
+      <th class="title">제목</th>
+      <th class="person">작성자</th>
+      <th class="contents">내용</th>
+      <th class="delete">삭제</th>
+    <!-- 추가적인 게시물들을 이곳에 추가 -->
+  </table>
+</body>
+</html>

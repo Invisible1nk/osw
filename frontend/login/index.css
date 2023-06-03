@@ -264,6 +264,11 @@ body {
   font-weight: bold;
   font-family: 'Bruno Ace SC', cursive;
   padding: 0px 10px 10px 10px;
+  transition: all 0.5s;
+}
+.SignupButton:hover{
+  color: blue;
+  font-size: large;
 }
 
 .Signup:hover{

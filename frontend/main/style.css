@@ -23,6 +23,13 @@ header h1{
 	margin-block-start: 0.5em;
 	margin-block-end: 0.5em;
 	display: inline-block;
+	transition: all 0.5s;
+}
+
+header h1:hover{
+	color: rgb(162, 255, 0);
+	font-size: 2.1em;
+
 }
 
 .header-buttons {
@@ -58,6 +65,8 @@ header h1{
 	width: 100%;
 	height: 100%;
 }
+
+
 
 i {
 margin: 0 2px;
@@ -123,9 +132,16 @@ height: 250px;
 
 top: 3px;
 
-
+transition: all 0.1s;
 }
 
+.ch:hover{
+	border: 4px solid #081bcd;
+}
+
+.ch:hover .chtxt{
+	color: #081bcd;
+}
 
 .chtxt
 {
@@ -139,7 +155,7 @@ font-weight: bold;
 
 top: 240px;
 
-transition: all 0.3s;
+transition: all 0.1s;
 }
 
 
@@ -166,7 +182,7 @@ border:1px solid;
 border-radius: 20px;
 /* top: -300px; */
 
-transition: all 0.2s;
+transition: all 0.1s;
 
 }
 
@@ -175,12 +191,10 @@ transition: all 0.2s;
 #banner:hover .tistory {
 
 top: 3px;
-z-index: 1;#banner:hover .chtxt{
-
-left: 700px;
-}
+z-index: 1;
 
 }
+
 
 
 
@@ -324,6 +338,19 @@ opacity: 1;
 	background-color: #999;
 }
 
+#map-popup {
+    position: absolute;
+	border: 1px #333 solid;
+	border-radius: 10px;
+    top: 90%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+    background-color: #333;
+    padding: 20px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.25);
+}
+
 footer {
 	background-color: #333;
 	color: #fff;
@@ -332,10 +359,40 @@ footer {
 	clear: both;
 }
 
+footer #open-map{
+	font-family: 'Bruno Ace SC', cursive;
+	color: #01baf8;
+	font-weight: bold;
+	transition: all 0.3s;
+	background-color: #333;
+}
+
+footer #open-map:hover{
+	font-size: large;
+	color: rgb(162, 255, 0);
+}
+
+footer #close-map{
+	font-family: 'Bruno Ace SC', cursive;
+	color: #01baf8;
+	font-weight: bold;
+	transition: all 0.3s;
+	background-color: #333;
+}
+
+footer #close-map:hover{
+	font-size: large;
+	color: rgb(162, 255, 0);
+}
+
 footer p {
 	margin: 0;
 	font-size: 0.8em;
 	color: #666;
+}
+
+footer div{
+	color: #081bcd;
 }
 #showGif{
 	border: 2px solid;
